@@ -1,3 +1,4 @@
+exclude: 'Matplotlib/datos/.*'
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
@@ -30,4 +31,4 @@ repos:
     hooks:
       - id: ruff
       - id: ruff-format
-exclude: 'Matplotlib/datos/.*'
+
