@@ -35,4 +35,4 @@ jobs:
           key: "pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}"
           restore-keys: "pre-commit-"
 
-      - run: pre-commit run --all-files --show-diff-on-failure
+      - run: pre-commit run --all-files --show-diff-on-failure --verbose
