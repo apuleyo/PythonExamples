@@ -1,24 +1,23 @@
-# Use the official Python base image
-FROM --platform=linux/amd64 python:3.9-rc-slim-buster as pythonbaseimage
+FROM --platform=linux/amd64 python:3.8-rc-slim-buster as baseimage
 
-# Copy pip file to container
+RUN apt update
+
 COPY Pipfile .
 COPY Pipfile.lock .
 
-# Install any required system dependencies
 RUN pip install pipenv \
- && PIPENV_VENV_IN_PROJECT=1 PIPENV_SITE_PACKAGES=1 pipenv install --deploy --dev --system
+ && PIPENV_VENV_IN_PROJECT=1 PIPENV_SITE_PACKAGES=1 pipenv install --dev --system --deploy
 
-# Set the working directory inside the container
-WORKDIR /app
 
-# Copy the requirements file and install Python dependencies
-FROM pythonbaseimage
-COPY --from=pythonbaseimage /.venv /.venv
+FROM baseimage
+COPY --from=baseimage /.venv /.venv
 ENV PATH="/.venv/bin:$PATH"
 
-# Copy your application code into the container
-COPY . .
+RUN useradd --create-home user_a && mkdir app
+USER user_a
+WORKDIR /home/user_a/app
 
-# Expose any required ports
-RUN mkdir /app/allure-results
+RUN mkdir -p /home/user_a/output
+
+COPY --chown=user_a:user_a Pipfile* ./
+COPY --chown=user_a:user_a test_cases.py ./
