@@ -12,6 +12,6 @@ jobs:
     uses: ./.github/workflows/component-tests.yml
     with:
       tagname: test-component-docker-image
-      dockerfile: Dockerfile
+      dockerfile: ./Pytest_docker/Dockerfile
       allure_result_folder: allure-results
     secrets: inherit
