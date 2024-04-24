@@ -2,8 +2,8 @@ FROM --platform=linux/amd64 python:3.8-rc-slim-buster as baseimage
 
 RUN apt update
 
-COPY Pipfile .
-COPY Pipfile.lock .
+COPY ./Pytest_docker/Pipfile .
+COPY ./Pytest_docker/Pipfile.lock .
 
 RUN pip install pipenv \
  && PIPENV_VENV_IN_PROJECT=1 PIPENV_SITE_PACKAGES=1 pipenv install --dev --system --deploy
