@@ -19,5 +19,5 @@ WORKDIR /home/user_a/app
 
 RUN mkdir -p /home/user_a/output
 
-COPY --chown=user_a:user_a Pipfile* ./
-COPY --chown=user_a:user_a test_cases.py ./
+COPY --chown=user_a:user_a ./Pytest_docker/Pipfile* ./
+COPY --chown=user_a:user_a ./Pytest_docker/test_cases.py ./
