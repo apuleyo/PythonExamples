@@ -103,8 +103,8 @@ jobs:
           cp -r allure-report/* .
           rm -rf allure-report
           rm -rf current-allure-results
-          git config --global user.email "$HARISH_EMAIL"
-          git config --global user.name "$HARISH_USERNAME"
+          git config --global user.email "$APULEYO_EMAIL"
+          git config --global user.name "$APULEYO_USERNAME"
           git remote -v
           git remote set-url origin git@github.com:apuleyo/PythonExamples.git
           git checkout pages
