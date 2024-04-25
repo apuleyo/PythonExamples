@@ -63,10 +63,10 @@ jobs:
     needs: run-tests
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository branch gh-pages
+      - name: Checkout Repository branch pages
         uses: actions/checkout@v2
         with:
-          ref: gh-pages
+          ref: pages
 
       - name: Import artifacts from test run
         uses: actions/download-artifact@v2
@@ -90,8 +90,8 @@ jobs:
         continue-on-error: true
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          HARISH_EMAIL: ${{ secrets.HARISH_EMAIL }}
-          HARISH_USERNAME: ${{ secrets.HARISH_USERNAME }}
+          APULEYO_EMAIL: ${{ secrets.APULEYO_EMAIL }}
+          APYLEYO_USERNAME: ${{ secrets.APULEYO_USERNAME }}
         run: |
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
@@ -106,8 +106,8 @@ jobs:
           git config --global user.email "$HARISH_EMAIL"
           git config --global user.name "$HARISH_USERNAME"
           git remote -v
-          git remote set-url origin git@github.com:pillaiharish/pytest-allure-github-actions.git 
-          git checkout gh-pages
+          git remote set-url origin git@github.com:apuleyo/PythonExamples.git
+          git checkout pages
           git add .
           git commit -m "Adding allure reports"
-          git push origin gh-pages
+          git push origin pages
