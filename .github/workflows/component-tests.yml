@@ -106,7 +106,7 @@ jobs:
           git config --global user.email "92639034+apuleyo@users.noreply.github.com"
           git config --global user.name "apuleyo"
           git remote -v
-          git remote set-url origin https://github.com/apuleyo/PythonExamples.git
+          git remote set-url origin git@github.com:apuleyo/PythonExamples.git
           git checkout pages
           git add .
           git commit -m "Adding allure reports"
