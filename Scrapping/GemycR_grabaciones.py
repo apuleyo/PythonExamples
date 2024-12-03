@@ -10,13 +10,21 @@ from datetime import date
 from datetime import datetime
 import time
 import pandas as pd
+import sys
+import os
 
 # Listas a utilizar para los datos
 inicio=list()
 duracion=list()
 grabacion=list()
 canal=list()
+tipo_llamada=list()
 participantes=list()
+
+# Agregar el directorio del proyecto al sys.path
+project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+project_dir = project_dir + r'\Scrapping'
+
 
 """
 Return date in specific format to use in csv file name
@@ -45,7 +53,11 @@ options.add_argument('--start-maximized')
 options.add_argument('--disable-extensions')
 options.add_argument('--headless')              #Sin apertura del navegador
 
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+#driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+options = webdriver.ChromeOptions()
+service = Service(r'C:\Users\luisangel.marugan\.wdm\drivers\chromedriver\win64\131.0.6778.85\chromedriver-win32\chromedriver.exe')  # Specify the path to your ChromeDriver
+driver = webdriver.Chrome(service=service, options=options)
+
 
 # Iniciarla en la pantalla 2
 driver.set_window_position(2000, 0)
@@ -113,14 +125,16 @@ for row in rows:
     duracion.append(cells[1].text)
     grabacion.append(cells[2].text)
     canal.append(cells[3].text)
- #   for participant in participants:
- #       participantes.append(cells[4].text)
+    tipo_llamada.append(cells[4].text)
+    participantes.append(cells[5].text)
+    #for participant in participants:
+        #participantes.append(cells[4].text)
     
 
-#df = pd.DataFrame({'Inicio': inicio, 'Duracion': duracion, 'Grabacion':grabacion, 'Canal': canal, 'Participantes': participantes})
-df = pd.DataFrame({'Inicio': inicio, 'Duracion': duracion, 'Grabacion':grabacion, 'Canal': canal})
+df = pd.DataFrame({'Inicio': inicio, 'Duracion': duracion, 'Grabacion':grabacion, 'Canal': canal, 'Tipo llamada' : tipo_llamada, 'Participantes': participantes})
+#df = pd.DataFrame({'Inicio': inicio, 'Duracion': duracion, 'Grabacion':grabacion, 'Canal': canal, 'Tipo llamada' : tipo_llamada})
 print(df)
-df.to_excel('Grabaciones' +'_'+horafecha()+'.xlsx', index=False)
+df.to_excel(project_dir+ r'\Grabaciones' +'_'+horafecha()+'.xlsx', index=False)
 
 
 driver.quit()
